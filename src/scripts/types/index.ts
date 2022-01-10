@@ -1,15 +1,26 @@
 export interface ITodoItem {
     id: number;
     text: string;
-    checked: boolean;
+    completed: boolean;
 }
+
+
 
 
 export interface IActions {
     onInput: (value: string) => void; // arrow function
     onSubmit: () => void;
     onChange: (id:number, text: string) => void;
+    onToggle: (id: number) => void;
+    onRemove: (id: number) => void;
+    onDeleteAllCompleted: () => void;
+    onClickFilter: (value: Filters) => void;
 }
+
+export interface IStorage {
+    setItem: (key: string, value: string) => void;
+}
+
 
 export interface IListener {
     eventName: string;

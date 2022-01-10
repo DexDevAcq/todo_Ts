@@ -92,6 +92,10 @@
         margin: 30px auto 0;
         padding: 0 15px;
 
+        .invisible {
+            display: none;
+        }
+
         .counter {
             text-decoration: underline;
             text-decoration-color: $mainColorLight;
@@ -111,6 +115,7 @@
                 box-shadow: none;
                 height: 25px;
                 border-right: 1px solid $mainColorLight;
+                
 
                 &:last-child {
                     border-right: 0;
@@ -125,6 +130,7 @@
                 }
             }
         }
+
     }
 }
 

@@ -15,7 +15,7 @@
 }
 
 
-.input-field {
+.input-field, .text-field {
     z-index: 11;
     position: relative;
     background: white;
@@ -23,6 +23,9 @@
     box-shadow: $shadow;
     border-radius: $mainRadius;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     
     input {
         width: 100%;

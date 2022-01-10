@@ -2,3 +2,10 @@ node_modules
 dist
 webpack.config.js
 .eslintrc.js
+
+tsconfig.json
+.prettierrc
+package-lock.json
+index.html
+index.ts
+src/styles
