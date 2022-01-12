@@ -8,13 +8,13 @@ import {
 
 export default class TodoListView {
   handlers = {
-    onInput: (value: string) => console.log("Input"),
+    onInput: (value: string) => console.log("Input", value),
     onSubmit: () => console.log("Submit"),
-    onChange: (id: number, text: string) => console.log("Change"),
-    onToggle: (id: number) => console.log("toggle"),
-    onRemove: (id: number) => console.log("remove"),
+    onChange: (id: number, text: string) => console.log("Change", id, text),
+    onToggle: (id: number) => console.log("toggle", id),
+    onRemove: (id: number) => console.log("remove", id),
     onDeleteAllCompleted: () => console.log("remove all"),
-    onClickFilter: (value: Filters) => console.log("filter func"),
+    onClickFilter: (value: Filters) => console.log("filter func", value),
   };
 
   private static _createContainer(): HTMLElement {
@@ -154,7 +154,7 @@ export default class TodoListView {
     modal.appendChild(backdrop);
 
     return new Promise((resolve) => {
-      const clearModal = (e: any) => {
+      const clearModal = (e: KeyboardEvent) => {
         if (e.code === KeyboardKeys.ENTER_KEY) {
           modal.replaceChildren();
           document.removeEventListener("keydown", clearModal);
@@ -194,7 +194,7 @@ export default class TodoListView {
 
     const spanContent = document.createElement("span");
     spanContent.classList.add("content");
-    spanContent.insertAdjacentText("afterbegin", todo.text); // add a task
+    spanContent.insertAdjacentText("afterbegin", todo.text);
 
     label.appendChild(input);
     label.appendChild(spanCheckMark);
@@ -203,7 +203,6 @@ export default class TodoListView {
     const div = document.createElement("div");
     div.classList.add("buttons");
 
-    // const editBtn = document.createElement('button');
     const btnEdit = TodoListView._createButton(
       "∴",
       ["edit"],
@@ -239,11 +238,6 @@ export default class TodoListView {
       ]
     );
 
-    // const deleteBtn = document.createElement('button');
-    // deleteBtn.setAttribute('type', 'button');
-    // deleteBtn.insertAdjacentText('afterbegin', '✗');
-    // deleteBtn.classList.add('delete');
-
     div.appendChild(btnEdit);
     div.appendChild(btnDelete);
 
@@ -262,7 +256,6 @@ export default class TodoListView {
 
     const input = document.createElement("input");
     input.addEventListener("input", (e) => {
-      // console.log((<HTMLInputElement>e.target).value)
       this.handlers.onInput((<HTMLInputElement>e.target).value);
     });
     input.addEventListener("keydown", (e) => {
@@ -274,7 +267,6 @@ export default class TodoListView {
     input.setAttribute("placeholder", "new todo...");
     input.setAttribute("autocomplete", "off");
 
-    // const button = document.createElement('button');
     const btnAdd = TodoListView._createButton(
       "Add",
       ["add-btn"],
@@ -416,9 +408,6 @@ export default class TodoListView {
     if (todos.length) {
       container.appendChild(controlsSection);
     }
-
-    //third section with btns
-    // container.appendChild(secControls);
 
     main.appendChild(container);
     return main;

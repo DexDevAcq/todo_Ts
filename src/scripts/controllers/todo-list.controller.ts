@@ -30,8 +30,6 @@ export default class TodoListController {
 
   actionInput(value: string): void {
     this._todoListModel.currentInputValue = value;
-
-    // console.log(value);
   }
 
   actionAdd(): void {
@@ -75,9 +73,6 @@ export default class TodoListController {
       this._todoListModel.taskList,
       this.currentFilterValue
     );
-
-    //1 - mode;.delete();
-    //2 - view.render() ;
   }
 
   actionRemoveAllComplete(): void {
