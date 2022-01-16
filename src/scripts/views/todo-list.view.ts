@@ -1,3 +1,4 @@
+import { response } from "express";
 import {
   IActions,
   ITodoItem,
@@ -172,6 +173,43 @@ export default class TodoListView {
         }
       };
 
+      const btnResolve = TodoListView._createButton(
+        "Yes",
+        ["yes"],
+        [
+          {
+            eventName: "click",
+            callback: (e) => {
+              modal.replaceChildren();
+              if (id) {
+                resolve(id);
+              } else {
+                resolve(Infinity);
+              }
+            },
+          },
+        ]
+      );
+      const btnReject = TodoListView._createButton(
+        "No",
+        ["no"],
+        [
+          {
+            eventName: "click",
+            callback: (e) => {
+              modal.replaceChildren();
+              resolve(false);
+            },
+          },
+        ]
+      );
+
+      const btnLine = document.createElement("div");
+      btnLine.classList.add("btnLine");
+
+      btnLine.appendChild(btnResolve);
+      btnLine.appendChild(btnReject);
+      textField.appendChild(btnLine);
       document.addEventListener("keydown", clearModal);
     });
   }

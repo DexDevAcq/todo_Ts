@@ -26,6 +26,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+
+    .btnLine, .yes, .no {
+        margin: 20px;
+
+        .yes, .no {
+            padding: 10px;
+        }
+
+    }
     
     input {
         width: 100%;

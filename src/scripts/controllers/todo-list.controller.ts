@@ -22,6 +22,7 @@ export default class TodoListController {
   }
 
   init(): void {
+    this._todoListModel.init();
     this._todoListView.render(
       this._todoListModel.taskList,
       this.currentFilterValue
@@ -42,12 +43,12 @@ export default class TodoListController {
         this.currentFilterValue
       );
     }
-    console.log(this._todoListModel.taskList);
+    // console.log(this._todoListModel.taskList);
   }
 
   actionChange(id: number, text: string): void {
     this._todoListModel.changeText(id, text);
-    console.log(this._todoListModel.taskList);
+    // console.log(this._todoListModel.taskList);
 
     this._todoListView.render(
       this._todoListModel.taskList,
@@ -57,7 +58,7 @@ export default class TodoListController {
 
   actionToggle(id: number): void {
     this._todoListModel.toggle(id);
-    console.log(this._todoListModel.taskList);
+    // console.log(this._todoListModel.taskList);
 
     this._todoListView.render(
       this._todoListModel.taskList,
@@ -67,7 +68,7 @@ export default class TodoListController {
 
   actionRemove(id: number): void {
     this._todoListModel.delete(id);
-    console.log(this._todoListModel.taskList);
+    // console.log(this._todoListModel.taskList);
 
     this._todoListView.render(
       this._todoListModel.taskList,
@@ -77,7 +78,7 @@ export default class TodoListController {
 
   actionRemoveAllComplete(): void {
     this._todoListModel.removeUnCompleted();
-    console.log(this._todoListModel.taskList);
+    // console.log(this._todoListModel.taskList);
     this._todoListView.render(
       this._todoListModel.taskList,
       this.currentFilterValue
@@ -87,7 +88,6 @@ export default class TodoListController {
   actionChangeFilter(value: Filters) {
     this.currentFilterValue = value;
     localStorage.setItem("filterState", value);
-    // console.log(this.currentFilterValue)
     this._todoListView.render(
       this._todoListModel.taskList,
       this.currentFilterValue

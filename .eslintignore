@@ -9,3 +9,4 @@ package-lock.json
 index.html
 index.ts
 src/styles
+src/server
