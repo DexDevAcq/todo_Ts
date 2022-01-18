@@ -48,18 +48,7 @@ class TodoController {
 
             const {text, completed} = req.body;
             const todoId = req.params.id
-            const strStatus = JSON.stringify(completed);
-    
-    
-            if(text && strStatus){
-                const updatedTodo = await db.query(`UPDATE "todo"
-                SET "text" = $1, "completed" = $2
-                WHERE "id" = $3;`, [text, completed, todoId]);
-       
-                const todos = await db.query(`SELECT * FROM "todo"`);
-                return res.json(todos.rows);
-            }
-    
+            const strStatus = JSON.stringify(completed);    
     
             if(text){
                 const updatedTodo = await db.query(`UPDATE "todo"
@@ -75,7 +64,7 @@ class TodoController {
                 const updatedTodo = await db.query(`UPDATE "todo"
                 SET "completed" = $1
                 WHERE "id" = $2`, [completed, todoId]);
-                const todos = await db.query(`SELECT * FROM "todo"`);
+                const todos = await db.query(`SELECT * FROM "todo" ORDER BY "id"`);
                 return res.json(todos.rows);
             }
 
