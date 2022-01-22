@@ -11,7 +11,7 @@ export default class TodoListModel {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private async request(
+  async request(
     _method = "GET",
     _link?: string,
     key?: string,
@@ -41,58 +41,5 @@ export default class TodoListModel {
         JSON.stringify(this.taskList)
       );
     }
-  }
-
-  create(text: string): void {
-    const todo = {
-      id: Math.floor(Math.random() * 100000),
-      text,
-      completed: false,
-    };
-    this.request("POST", Uri.LINK, "text", text);
-    this.taskList.push(todo);
-  }
-
-  changeText(id: number, text: string): void {
-    this.taskList = this.taskList.map((todo) => {
-      if (todo.id === id) {
-        this.request("PUT", Uri.LINK + `${id.toString()}`, "text", text);
-        return {
-          ...todo,
-          text,
-        };
-      } else {
-        return todo;
-      }
-    });
-  }
-
-  toggle(id: number): void {
-    this.taskList = this.taskList.map((todo) => {
-      if (todo.id === id) {
-        this.request(
-          "PUT",
-          Uri.LINK + `${id.toString()}`,
-          "completed",
-          !todo.completed
-        );
-        return {
-          ...todo,
-          completed: !todo.completed,
-        };
-      } else {
-        return todo;
-      }
-    });
-  }
-
-  delete(id: number): void {
-    this.taskList = this.taskList.filter((todo) => todo.id !== id);
-    this.request("DELETE", Uri.LINK + `${id.toString()}`);
-  }
-
-  removeUnCompleted(): void {
-    this.taskList = this.taskList.filter((todo) => !todo.completed);
-    this.request("DELETE", Uri.LINK + "0");
   }
 }

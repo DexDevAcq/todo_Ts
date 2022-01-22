@@ -1,4 +1,3 @@
-import { response } from "express";
 import {
   IActions,
   ITodoItem,
@@ -210,6 +209,7 @@ export default class TodoListView {
       btnLine.appendChild(btnResolve);
       btnLine.appendChild(btnReject);
       textField.appendChild(btnLine);
+      btnResolve.focus();
       document.addEventListener("keydown", clearModal);
     });
   }

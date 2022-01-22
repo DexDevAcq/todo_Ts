@@ -1,5 +1,5 @@
 import TodoListModel from "../models/todo-list.model";
-import { Filters } from "../types";
+import { Filters, Uri } from "../types";
 import TodoListView from "../views/todo-list.view";
 
 export default class TodoListController {
@@ -37,52 +37,65 @@ export default class TodoListController {
     const text = this._todoListModel.currentInputValue.trim();
 
     if (text) {
-      this._todoListModel.create(text);
-      this._todoListView.render(
-        this._todoListModel.taskList,
-        this.currentFilterValue
-      );
+      this._todoListModel
+        .request("POST", Uri.LINK, "text", text)
+        .then(() =>
+          this._todoListView.render(
+            this._todoListModel.taskList,
+            this.currentFilterValue
+          )
+        );
     }
-    // console.log(this._todoListModel.taskList);
   }
 
   actionChange(id: number, text: string): void {
-    this._todoListModel.changeText(id, text);
-    // console.log(this._todoListModel.taskList);
-
-    this._todoListView.render(
-      this._todoListModel.taskList,
-      this.currentFilterValue
-    );
+    this._todoListModel
+      .request("PUT", Uri.LINK + `${id.toString()}`, "text", text)
+      .then(() =>
+        this._todoListView.render(
+          this._todoListModel.taskList,
+          this.currentFilterValue
+        )
+      );
   }
 
   actionToggle(id: number): void {
-    this._todoListModel.toggle(id);
-    // console.log(this._todoListModel.taskList);
-
-    this._todoListView.render(
-      this._todoListModel.taskList,
-      this.currentFilterValue
-    );
+    const todo = this._todoListModel.taskList.find((todo) => todo.id === id);
+    this._todoListModel
+      .request(
+        "PUT",
+        Uri.LINK + `${id.toString()}`,
+        "completed",
+        !todo.completed
+      )
+      .then(() =>
+        this._todoListView.render(
+          this._todoListModel.taskList,
+          this.currentFilterValue
+        )
+      );
   }
 
   actionRemove(id: number): void {
-    this._todoListModel.delete(id);
-    // console.log(this._todoListModel.taskList);
-
-    this._todoListView.render(
-      this._todoListModel.taskList,
-      this.currentFilterValue
-    );
+    this._todoListModel
+      .request("DELETE", Uri.LINK + `${id.toString()}`)
+      .then(() =>
+        this._todoListView.render(
+          this._todoListModel.taskList,
+          this.currentFilterValue
+        )
+      );
   }
 
   actionRemoveAllComplete(): void {
-    this._todoListModel.removeUnCompleted();
-    // console.log(this._todoListModel.taskList);
-    this._todoListView.render(
-      this._todoListModel.taskList,
-      this.currentFilterValue
-    );
+    this._todoListModel
+      .request("DELETE", Uri.LINK + "0")
+      .then(() =>
+        this._todoListView.render(
+          this._todoListModel.taskList,
+          this.currentFilterValue
+        )
+      );
   }
 
   actionChangeFilter(value: Filters) {

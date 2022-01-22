@@ -62,18 +62,20 @@
                         font-size: 24px;
                         user-select: none;
                         transition: background-color .2s linear;
+                        outline: none;
                     }
 
                     .edit {
+                        
                         background-color: $mainColorLight;
-
+                        outline: none;
                         &:hover {
                             background-color: $mainColorSolid;
                         }
                     }
                     .delete {
                         background-color: $warnColorLight;
-
+                        outline: none;
                         &:hover {
                             background-color: $warnColorSolid;
                         }
